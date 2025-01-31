@@ -9,7 +9,7 @@ The data were further analyzed using deep archetypal model in the deep-fMC_paper
 
 1. Data acquisition in online or offline modes. In the online mode, SRA IDs should be provided whereas offline mode requires standard Fastq on the local system.
    
-2. Trimming and Filtering with [**FASTP**](https://github.com/OpenGene/fastp) using the following parameters: --trim_poly_x --trim_poly_g -p --length_required 40 --cut_front --cut_tail --cut_mean_quality 25
+2. Trimming and Filtering with [**FASTP**](https://github.com/OpenGene/fastp) using the following parameters: *--trim_poly_x --trim_poly_g -p --length_required 40 --cut_front --cut_tail --cut_mean_quality 25*
 
 3. Species Relative Abundance with [**KRAKEN2**](https://ccb.jhu.edu/software/kraken2/) (confidence threshold of 0.15) and [**Bracken**](https://ccb.jhu.edu/software/bracken/). We used the [HumGut database](https://github.com/larssnip/HumGut) following the Genome Taxonomy Database (GTDB) classification scheme61 and the human genome downloaded from NCBI to identify and remove contamination. Improvement of Species Taxonomy using [a custom script from the Bhatt lab](https://github.com/bhattlab/kraken2_classification/blob/master/scripts/improve_taxonomy.py) 
    
