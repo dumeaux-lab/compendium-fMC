@@ -83,7 +83,7 @@ humann_databases --download utility_mapping full $INSTALL_LOCATION # downloading
 ------------------------
 ### Citations:
 
-1. *. [Mohamed Meawad, Dalwinder Singh, Alice Deng, Rohan Sonthalia, Evelyn Cai, Vanessa Dumeaux. Deep learning reveals functional archetypes in the adult human gut microbiome that underlie interindividual variability and confound disease signals. Biorxiv 2025](https://doi.org/10.1101/2025.01.29.635381)
+1. Mohamed Meawad, Dalwinder Singh, Alice Deng, Rohan Sonthalia, Evelyn Cai, Vanessa Dumeaux. Deep learning reveals functional archetypes in the adult human gut microbiome that underlie interindividual variability and confound disease signals. [Biorxiv 2025](https://doi.org/10.1101/2025.01.29.635381)
 
 
 
