@@ -1,6 +1,6 @@
 # compendium-fMC #
 
-compendium-fMC is a bioinformatics pipeline to process whole genome metagenomic (WGM) data obtained from human gut microbiome samples.
+compendium-fMC is a bioinformatics pipeline to process whole genome metagenomic (WGM) profiles of human gut microbiome samples.
 It is designed to use the latest genome annotations and minimize false positives, converting raw reads into relative pathway abundances.
 The data were further analyzed using deep archetypal model in the deep-fMC_paper.
 
@@ -9,11 +9,11 @@ The data were further analyzed using deep archetypal model in the deep-fMC_paper
 
 1. Data acquisition in online or offline modes. In the online mode, SRA IDs should be provided whereas offline mode requires standard Fastq on the local system.
    
-2. Trimming and Filtering with [**FASTP**](https://github.com/OpenGene/fastp)
+2. Trimming and Filtering with [**FASTP**](https://github.com/OpenGene/fastp) using the following parameters: --trim_poly_x --trim_poly_g -p --length_required 40 --cut_front --cut_tail --cut_mean_quality 25
 
-3. Species Relative Abundance with [**KRAKEN2**](https://ccb.jhu.edu/software/kraken2/) and [**Bracken**](https://ccb.jhu.edu/software/bracken/). Improvement of Species Taxonomy using [a custom script from the Bhatt lab](https://github.com/bhattlab/kraken2_classification/blob/master/scripts/improve_taxonomy.py) 
+3. Species Relative Abundance with [**KRAKEN2**](https://ccb.jhu.edu/software/kraken2/) (confidence threshold of 0.15) and [**Bracken**](https://ccb.jhu.edu/software/bracken/). We used the [HumGut database](https://github.com/larssnip/HumGut) following the Genome Taxonomy Database (GTDB) classification scheme61 and the human genome downloaded from NCBI to identify and remove contamination. Improvement of Species Taxonomy using [a custom script from the Bhatt lab](https://github.com/bhattlab/kraken2_classification/blob/master/scripts/improve_taxonomy.py) 
    
-5. Pathway Relative Abundance with [**HUMAnN3**](https://huttenhower.sph.harvard.edu/humann/)
+5. Pathway Relative Abundance with [**HUMAnN3 v3.7**](https://huttenhower.sph.harvard.edu/humann/) with its associated databases.
 
 ------------------------
 ### System requirements:
@@ -60,20 +60,20 @@ humann_databases --download utility_mapping full $INSTALL_LOCATION # downloading
 
       1.4. OFF_DATA_LOC: Offline Location of data. The program expects all samples in one folder and names as XX.fq for SE and XX_1.fq and XX_2.fq for PE
 
-3. Prepare the sample list (check out ./sample_lists/PRJNA392180_SE && ./sample_lists/PRJNA298489_MERGED for format). 
+3. Prepare the sample list (check out ./sample_lists/PRJNA392180_SE && ./sample_lists/PRJNA298489_MERGED for formatting). 
 
 4. Run pipeline
 
 #### Online mode
 
 ```
-(/bin/bash -c "cd deep-fMC && source main.sh && MICROBIOME ./project1/ ./sample_lists/PRJNA392180_SE  online 12")
+(/bin/bash -c "cd compendium-fMC && source main.sh && MICROBIOME ./project1/ ./sample_lists/PRJNA392180_SE  online 12")
 ```
 
 #### Offline mode with paired-end samples (Samples must be named as \*_1.fq, \*_2.fq)
 
 ```
-(/bin/bash -c "cd deep-fMC && source main.sh && MICROBIOME ./project1/ ./sample_lists/PRJNA392180_SE  offline 12 ./offlinesamples/")
+(/bin/bash -c "cd ompendium-fMC && source main.sh && MICROBIOME ./project1/ ./sample_lists/PRJNA392180_SE  offline 12 ./offlinesamples/")
 ```
 
 ------------------------
@@ -83,8 +83,7 @@ humann_databases --download utility_mapping full $INSTALL_LOCATION # downloading
 ------------------------
 ### Citations:
 
-1. *. []() biorxiv
+1. *. [Mohamed Meawad, Dalwinder Singh, Alice Deng, Rohan Sonthalia, Evelyn Cai, Vanessa Dumeaux. Deep learning reveals functional archetypes in the adult human gut microbiome that underlie interindividual variability and confound disease signals. Biorxiv 2025](https://doi.org/10.1101/2025.01.29.635381)
 
 
-# compendium-fMC
 
