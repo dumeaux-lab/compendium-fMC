@@ -1,0 +1,66 @@
+---
+title: "kraken2"
+author: "Vanessa Dumeaux"
+date: "7/19/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(R.utils)
+library(BiocParallel)
+
+ncores <- 12
+register(MulticoreParam(workers=ncores))
+
+kdb <- "/home/shared/data/db/metagenomics/humgut/krakendb_humangtdb"
+```
+
+
+
+I followed the instructions provided here: https://github.com/larssnip/HumGut 
+
+I use the GTDB taxonomy.
+
+
+```{bash}
+cd /home/shared/data/db/metagenomics/humgut
+wget http://arken.nmbu.no/~larssn/humgut/HumGut.tsv
+wget http://arken.nmbu.no/~larssn/humgut/gtdb_names.dmp
+wget http://arken.nmbu.no/~larssn/humgut/gtdb_nodes.dmp
+
+cd genomes/fna/
+wget http://arken.nmbu.no/~larssn/humgut/HumGut.tar.gz
+zcat *.fna.gz > ../../HumGut975_library.fna
+
+
+
+mv gtdb_names.dmp /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut/taxonomy/names.dmp
+mv gtdb_nodes.dmp /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut/taxonomy/nodes.dmp
+```
+
+
+
+```{bash}
+conda activate flextaxd
+kraken2-build --download-library human --db /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut
+<!-- mkdir genomes -->
+<!-- ncbi-genome-download -p 20 -r 50 -l complete,chromosome -F fasta -s refseq --genera "Homo sapiens" vertebrate_mammalian -->
+
+kraken2-build --add-to-library HumGut975_library.fna --db /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut
+
+kraken2-build --build --threads 20 --db /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut
+
+bracken-build -d $KRAKEN2 -t 10 -k 35 -l 60
+```
+
+
+```{bash}
+conda activate flextaxd
+python3 src/improve_taxonomy.py /home/shared/data/db/metagenomics/humgut/krakendb_gtdbhumgut
+```
+
+
