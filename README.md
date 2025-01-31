@@ -79,7 +79,7 @@ humann_databases --download utility_mapping full $INSTALL_LOCATION # downloading
 ------------------------
 ### Output of compendium-fMC:
 
-Outputs will be saved in enrichment folder and are labeled as labelID_pathabundance.tsv (Make sure label_ID for samples is unique for large scale analysis)
+Output of HUMAnN3 results will be saved in *enrichment* folder and are labeled as *labelID_pathabundance.tsv* (Make sure label_ID for samples is unique for large scale analysis)
 
 ------------------------
 ### Citations:
